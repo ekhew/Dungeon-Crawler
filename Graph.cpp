@@ -219,12 +219,12 @@ void Graph<ItemType>::display() const
 }
 
 template <typename ItemType>
-void Graph<ItemType>::getRandomRoom()
+Room<ItemType>* Graph<ItemType>::getRandomRoomPtr()
 {
 	srand(time(0));
 	std::random_shuffle(ptr_vector_.begin(), ptr_vector_.end());
 
-	std::cout << ptr_vector_[0]->getRoomName();
+	return ptr_vector_[3];
 }
 
 template <typename ItemType>
@@ -237,12 +237,15 @@ void Graph<ItemType>::setRandomKeys()
 	{
 		ptr_vector_[i]->setHasKey(true);
 	}
+}
 
-	for(int i = 0; i < ptr_vector_.size(); i++)
-	{
-		std::cout << ptr_vector_[i]->getRoomName() << " " << ptr_vector_[i]->getHasKey() << std::endl;
-	}
+template <typename ItemType>
+void Graph<ItemType>::setRandomEnd()
+{
+	srand(time(0));
+	std::random_shuffle(ptr_vector_.begin(), ptr_vector_.end());
 
+	ptr_vector_[ptr_vector_.size() - 1]->setIsEnd(true);
 }
 
 template <typename ItemType>
@@ -258,5 +261,18 @@ void Graph<ItemType>::addRandomPath()
 	addPath(ptr_vector_[0]->getRoomName(), ptr_vector_[1]->getRoomName());
 }
 
+template <typename ItemType>
+void Graph<ItemType>::displayKeys()
+{
+	for(int i = 0; i <= 2; i++)
+	{
+		std::cout << ptr_vector_[i]->getRoomName() << std::endl;
+	}
+}
 
+template <typename ItemType>
+void Graph<ItemType>::displayEnd()
+{
+	std::cout << ptr_vector_[ptr_vector_.size() - 1]->getRoomName();
+}
 

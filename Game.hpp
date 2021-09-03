@@ -14,8 +14,9 @@ class Game
 public:
     Game();
     void displayGame() const;
+    void startGame();
 private:
-    Room<ItemType>* curr_room_; //the room the player is currently in
+    Room<ItemType>* curr_room_ptr_; //the room the player is currently in
 };
 
 #include "Game.cpp"

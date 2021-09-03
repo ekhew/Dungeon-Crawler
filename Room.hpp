@@ -46,6 +46,18 @@ public:
     */
     bool getHasKey() const;
 
+     /*
+        sets the item in the vertex to the specified item
+        @param item, item to be set in the vertex
+    */
+    void setIsEnd(bool is_end);
+
+    /*
+        returns the item of the calling vertex
+        @return 'item_'
+    */
+    bool getIsEnd() const;
+
     /*
         operator overload of '<'
         @param v, vertex to compare with the calling vertex
@@ -62,6 +74,7 @@ public:
 private:
     ItemType room_name_; //name of the room
     bool has_key_; //'true' if the room contains a key, and false otherwise
+    bool is_end_; //'true' if the room is the end/exit, and false otherwise
 };
 
 #include "Room.cpp"

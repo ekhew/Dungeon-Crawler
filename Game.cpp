@@ -30,6 +30,12 @@ Game<ItemType>::Game()
 
     //place keys in random rooms
     myGraph.setRandomKeys();
+
+    //set random room as the start
+    curr_room_ptr_ = myGraph.getRandomRoomPtr();
+
+    //set random room as the end
+    myGraph.setRandomEnd();
 }
 
 template <typename ItemType>
@@ -39,4 +45,20 @@ void Game<ItemType>::displayGame() const
 	myGraph.display();
 	std::cout << std::endl << "Keys Inside: " << std::endl;
 	myGraph.displayKeys();
+	std::cout << std::endl << "Start Room: " << curr_room_ptr_->getRoomName();
+	std::cout << std::endl << "End Room: ";
+	myGraph.displayEnd();
+	std::cout << std::endl << std::endl;
+}
+
+template <typename ItemType>
+void Game<ItemType>::startGame()
+{
+	std::cout << "Oh no! You stole the treasure and now the dungeon is collapsing on itself! Quick, find the three keys and make your escape through the exit." << std::endl << std::endl;
+
+	std::cout << "You are starting in room " << curr_room_ptr_->getRoomName() << "." << std::endl << std::endl;
+
+	std::cout << "Where to next? Connected rooms are:" << std::endl;
+	myGraph.printAdjVertices(curr_room_ptr_->getRoomName());
+	std::cout << std::endl;
 }

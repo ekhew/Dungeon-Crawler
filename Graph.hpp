@@ -84,9 +84,12 @@ public:
     */
     void display() const;
 
-    void getRandomRoom();
+    Room<ItemType>* getRandomRoomPtr();
     void setRandomKeys();
+    void setRandomEnd();
     void addRandomPath();
+    void displayKeys();
+    void displayEnd();
 private:
     std::map<Room<ItemType>, std::list<Room<ItemType>>> graph_; //map of vertex - adjacency lists pairs
     std::vector<Room<ItemType>*> ptr_vector_; //vector of pointers to rooms

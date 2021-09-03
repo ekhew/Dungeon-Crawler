@@ -9,7 +9,7 @@ template<typename ItemType>
 Room<ItemType>::Room() { }
 
 template<typename ItemType>
-Room<ItemType>::Room(ItemType room_name):room_name_(room_name), has_key_(false) { }
+Room<ItemType>::Room(ItemType room_name):room_name_(room_name), has_key_(false), is_end_(false) { }
 
 template<typename ItemType>
 void Room<ItemType>::setRoomName(ItemType room_name)
@@ -33,6 +33,18 @@ template<typename ItemType>
 bool Room<ItemType>::getHasKey() const
 {
     return has_key_;
+}
+
+template<typename ItemType>
+void Room<ItemType>::setIsEnd(bool is_end)
+{
+    is_end_ = is_end;
+}
+
+template<typename ItemType>
+bool Room<ItemType>::getIsEnd() const
+{
+    return is_end_;
 }
 
 template<typename ItemType>
