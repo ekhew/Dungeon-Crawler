@@ -1,11 +1,9 @@
 /*
-Title: Undirected Graph (Adjacency List)
+Title: Game Class
 Author: Edwin Khew
-Description: Undirected graph (adjacency list) class implementation.
-Date Created: 7/11/2021
+Description: Game class implementation.
+Date Created: 8/30/2021
 */
-
-#include <vector>
 
 Graph<std::string> myGraph; //create a new graph
 
@@ -43,18 +41,22 @@ void Game<ItemType>::displayGame() const
 {
 	std::cout << "Paths: " << std::endl;
 	myGraph.display();
+	
 	std::cout << std::endl << "Keys Inside: " << std::endl;
 	myGraph.displayKeys();
+	
 	std::cout << std::endl << "Start Room: " << curr_room_ptr_->getRoomName();
+	
 	std::cout << std::endl << "End Room: ";
 	myGraph.displayEnd();
+	
 	std::cout << std::endl << "--------------------------------------------------------------------------" << std::endl;
 }
 
 template <typename ItemType>
 void Game<ItemType>::startGame()
 {
-	std::string next_room;
+	std::string next_room; //stores user input
 
 	//introduction story text
 	std::cout << std::endl << "Oh no! You stole the treasure and now the dungeon is collapsing on itself! Quick, find the three keys and make your escape through the exit." << std::endl << std::endl;
@@ -62,42 +64,47 @@ void Game<ItemType>::startGame()
 	//display starting room to player
 	std::cout << "You are starting in room " << curr_room_ptr_->getRoomName() << "." << std::endl << std::endl;
 
-	//display connected rooms to player; prompts the player to enter the name of the next room to enter
+	//display adjacent rooms to player
 	std::cout << "Connected rooms are: ";
 	myGraph.printAdjVertices(curr_room_ptr_->getRoomName());
-	std::cout << std::endl << std::endl << "Enter room name: ";
 	
+	//prompts the player to enter the name of the next room to visit
+	std::cout << std::endl << std::endl << "Enter room name: ";
 	std::getline(std::cin, next_room);
+	
 	std::cout << std::endl << "--------------------------------------------------------------------------" << std::endl;
+	
 	continueGame(next_room);
 }
 
 template <typename ItemType>
-void Game<ItemType>::continueGame(std::string next_room)
+void Game<ItemType>::continueGame(std::string next_room_param)
 {
-	std::string to_next_room;
+	std::string next_room; //stores user input
 
-	//if the next room exists and is adjacent to the current room, move to the next room
-	if(myGraph.checkAdj(curr_room_ptr_->getRoomName(), next_room))
+	//move to next room if the room exists and is adjacent to the current room
+	if(myGraph.checkAdj(curr_room_ptr_->getRoomName(), next_room_param))
 	{
-		curr_room_ptr_ = myGraph.getRoomPtr(next_room);
+		curr_room_ptr_ = myGraph.getRoomPtr(next_room_param);
 		
+		//if the new room contains a key, increment 'key_count_' and remove the key from the room object
 		if(curr_room_ptr_->getHasKey())
 		{
 			key_count_++;
 			curr_room_ptr_->setHasKey(false);
 		}
 	}
-	else 
+	else
 	{
 		std::cout << std::endl << "Oops! Room not found. Try Again." << std::endl;
 	}
 	
+	//ends the game if the current room is the 'end' room, and the player has all 3 keys
 	if(curr_room_ptr_->getIsEnd() && key_count_ == 3)
 	{
 		endGame();
 	}
-	else
+	else //continues the game otherwise
 	{
 		std::cout << std::endl << "You are in room " << curr_room_ptr_->getRoomName() << "." << std::endl;
 	
@@ -110,13 +117,17 @@ void Game<ItemType>::continueGame(std::string next_room)
 			std::cout << "You currently have " << key_count_ << " keys." << std::endl << std::endl;
 		}
 		
+		//display adjacent rooms to player
 		std::cout << "Connected rooms are: ";
 		myGraph.printAdjVertices(curr_room_ptr_->getRoomName());
-		std::cout << std::endl << std::endl << "Enter room name: ";
 		
-		std::getline(std::cin, to_next_room);
+		//prompts the player to enter the name of the next room to visit
+		std::cout << std::endl << std::endl << "Enter room name: ";
+		std::getline(std::cin, next_room);
+		
 		std::cout << std::endl << "--------------------------------------------------------------------------" << std::endl;
-		continueGame(to_next_room);
+		
+		continueGame(next_room);
 	}
 }
 

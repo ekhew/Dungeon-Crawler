@@ -2,7 +2,7 @@
 Title: Undirected Graph (Adjacency List)
 Author: Edwin Khew
 Description: Undirected graph (adjacency list) class declaration.
-Date Created: 7/11/2021
+Date Created: 8/30/2021
 */
 
 #ifndef GRAPH_H_
@@ -22,74 +22,104 @@ public:
     Graph();
 
     /*
-        adds a new vertex into the graph
-        @param item, the new vertex to add into the graph
+        adds a new room to the dungeon
+        @param room_name, name of the new room to be added
     */
     void addRoom(ItemType room_name);
 
     /*
-        removes a vertex from the graph
-        @param item, vertex to remove from the graph
+        removes a room from the dungeon
+        @param room_name, name of the room to be removed
     */
     void removeRoom(ItemType room_name);
 
     /*
-        adds an edge connecting two specified vertices
-        @param item1, first vertex
-        @param item2, second vertex
+        adds a path connecting two rooms
+        @param room1, first room
+        @param room2, second room
     */
     void addPath(ItemType room1, ItemType room2);
 
     /*
-        removes an edge connecting two specified vertices
-        @param item1, first vertex
-        @param item2, second vertex
+        removes a path connecting two rooms
+        @param room1, first room
+        @param room2, second room
     */
     void removePath(ItemType room1, ItemType room2);
 
     /*
-        checks if the graph is currently empty
-        @return true if the graph is empty, and false otherwise
+        checks if the dungeon is currently empty (no rooms)
+        @return true if the dungeon is empty, and false otherwise
     */
     bool isEmpty() const;
 
     /*
-        checks if two specified vertices are adjacent
-        @param item1, first vertex
-        @param item2, second vertex
-        @return true if the vertices are adjacent, and false otherwise
+        checks if two specified rooms are adjacent
+        @param room1, first room
+        @param room2, second room
+        @return 'true' if the rooms are adjacent, and 'false' otherwise
     */
-    bool checkAdj(ItemType item1, ItemType item2) const;
+    bool checkAdj(ItemType room1, ItemType room2) const;
 
     /*
-        prints every adjacent vertex of the specified vertex
-        @param item, the vertex to print every adjacent vertex of
+        prints every adjacent room of the specified room
+        @param room_name, name of the room to print every adjacent room of
     */
-    void printAdjVertices(ItemType item) const;
+    void printAdjVertices(ItemType room_name) const;
 
     /*
-        traverses the graph using BFS and prints every vertex
-        @param start, the vertex to start the traversal from
+        traverses the dungeon using BFS and prints every room
+        @param start, the room to start the traversal from
     */
     void BFS(ItemType start) const;
 
     /*
-        traverses the graph using DFS and prints every vertex; iterative approach
-        @param start, the vertex to start the traversal from
+        traverses the dungeon using DFS and prints every room; iterative approach
+        @param start, the room to start the traversal from
     */
     void iterativeDFS(ItemType start) const;
 
     /*
-        prints out every adjacency list that makes up the graph
+        prints out every adjacency list that makes up the graph/dungeon
     */
     void display() const;
 
+	/*
+		returns a pointer to a random room
+		@return pointer to random room
+	*/
     Room<ItemType>* getRandomRoomPtr();
+    
+    /*
+    	returns the pointer to a specified room
+    	@param room_name, name of the room to get the pointer to 
+    	@return pointer to the specified room
+    */
     Room<ItemType>* getRoomPtr(std::string room_name);
+    
+    /*
+    	sets keys into three random rooms
+    */
     void setRandomKeys();
+    
+    /*
+    	sets a random room as the 'end' room
+    */
     void setRandomEnd();
+    
+    /*
+    	adds a path that connects two random rooms
+    */
     void addRandomPath();
+    
+    /*
+    	displays the rooms that contain the keys
+    */
     void displayKeys();
+    
+    /*
+    	displays the room that is the 'end' room
+    */
     void displayEnd();
 private:
     std::map<Room<ItemType>, std::list<Room<ItemType>>> graph_; //map of vertex - adjacency lists pairs

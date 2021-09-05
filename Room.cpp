@@ -1,8 +1,8 @@
 /*
-Title: Undirected Graph (Adjacency List) Vertex
+Title: Room Class
 Author: Edwin Khew
-Description: Undirected graph (adjacency list) vertex class implementation.
-Date Created: 7/11/2021
+Description: Room class implementation.
+Date Created: 8/30/2021
 */
 
 template<typename ItemType>

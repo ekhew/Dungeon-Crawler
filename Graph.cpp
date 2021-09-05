@@ -78,16 +78,16 @@ bool Graph<ItemType>::isEmpty() const
 }
 
 template <typename ItemType>
-bool Graph<ItemType>::checkAdj(ItemType item1, ItemType item2) const
+bool Graph<ItemType>::checkAdj(ItemType room1, ItemType room2) const
 {
-    typename std::map<Room<ItemType>, std::list<Room<ItemType>>>::const_iterator i = graph_.find(Room<ItemType>(item1)); //find the vertex key with 'item1' and store into the iterator
-    typename std::map<Room<ItemType>, std::list<Room<ItemType>>>::const_iterator j = graph_.find(Room<ItemType>(item2)); //find the vertex key with 'item2' and store into the iterator
+    typename std::map<Room<ItemType>, std::list<Room<ItemType>>>::const_iterator i = graph_.find(Room<ItemType>(room1)); //find the vertex key with 'item1' and store into the iterator
+    typename std::map<Room<ItemType>, std::list<Room<ItemType>>>::const_iterator j = graph_.find(Room<ItemType>(room2)); //find the vertex key with 'item2' and store into the iterator
 
     if(!isEmpty() && i != graph_.end() && j != graph_.end()) //can only check adjacency if graph is not empty and both vertices exist
     {
         for(auto j : i->second) //loop through the adjacency list of the vertex with 'item1'
         {
-            if(j.getRoomName() == item2) //if a matching item was found, then the vertices are adjacent
+            if(j.getRoomName() == room2) //if a matching item was found, then the vertices are adjacent
             {
                 return true;
             }
@@ -98,9 +98,9 @@ bool Graph<ItemType>::checkAdj(ItemType item1, ItemType item2) const
 }
 
 template <typename ItemType>
-void Graph<ItemType>::printAdjVertices(ItemType item) const
+void Graph<ItemType>::printAdjVertices(ItemType room_name) const
 {
-    typename std::map<Room<ItemType>, std::list<Room<ItemType>>>::const_iterator i = graph_.find(Room<ItemType>(item)); //find the vertex key with 'item' and store into the iterator
+    typename std::map<Room<ItemType>, std::list<Room<ItemType>>>::const_iterator i = graph_.find(Room<ItemType>(room_name)); //find the vertex key with 'item' and store into the iterator
 
     if(!isEmpty() && i != graph_.end()) //can only print adjacent vertices if graph is not empty and vertex exist
     {
