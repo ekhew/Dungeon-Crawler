@@ -15,8 +15,11 @@ public:
     Game();
     void displayGame() const;
     void startGame();
+    void continueGame(std::string next_room);
+    void endGame();
 private:
     Room<ItemType>* curr_room_ptr_; //the room the player is currently in
+    int key_count_ = 0; //number of keys the player has found so far
 };
 
 #include "Game.cpp"

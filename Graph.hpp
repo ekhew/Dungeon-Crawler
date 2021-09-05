@@ -85,6 +85,7 @@ public:
     void display() const;
 
     Room<ItemType>* getRandomRoomPtr();
+    Room<ItemType>* getRoomPtr(std::string room_name);
     void setRandomKeys();
     void setRandomEnd();
     void addRandomPath();
