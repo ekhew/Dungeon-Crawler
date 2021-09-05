@@ -7,7 +7,7 @@ Date Created: 8/30/2021
 
 #include <iostream>
 #include "Room.hpp"
-#include "Graph.hpp"
+#include "Dungeon.hpp"
 #include "Game.hpp"
 
 using namespace std;

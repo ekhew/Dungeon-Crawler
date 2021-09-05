@@ -1,23 +1,23 @@
 /*
-Title: Undirected Graph (Adjacency List)
+Title: Dungeon Class
 Author: Edwin Khew
-Description: Undirected graph (adjacency list) class implementation.
-Date Created: 7/11/2021
+Description: Dungeon class implementation.
+Date Created: 8/30/2021
 */
 
 #include <map>
 #include <list>
 #include <queue> //for BFS
 #include <stack> //for DFS
-#include <algorithm>
+#include <algorithm> //for random_shuffle() method
 #include <vector>
 #include <random>
 
 template <typename ItemType>
-Graph<ItemType>::Graph() { }
+Dungeon<ItemType>::Dungeon() { }
 
 template <typename ItemType>
-void Graph<ItemType>::addRoom(ItemType room_name)
+void Dungeon<ItemType>::addRoom(ItemType room_name)
 {
     Room<ItemType>* new_vertex = new Room<ItemType>(room_name); //create a new vertex object with the specified item
     std::list<Room<ItemType>> new_list; //create a new adjacency list that corresponds to the new vertex
@@ -27,7 +27,7 @@ void Graph<ItemType>::addRoom(ItemType room_name)
 }
 
 template <typename ItemType>
-void Graph<ItemType>::removeRoom(ItemType room_name)
+void Dungeon<ItemType>::removeRoom(ItemType room_name)
 {
     if(!isEmpty()) //can only remove vertex if the graph is not empty
     {
@@ -44,7 +44,7 @@ void Graph<ItemType>::removeRoom(ItemType room_name)
 }
 
 template <typename ItemType>
-void Graph<ItemType>::addPath(ItemType room1, ItemType room2)
+void Dungeon<ItemType>::addPath(ItemType room1, ItemType room2)
 {
     typename std::map<Room<ItemType>, std::list<Room<ItemType>>>::iterator i = graph_.find(Room<ItemType>(room1)); //find the vertex key with 'item1' and store into the iterator
     typename std::map<Room<ItemType>, std::list<Room<ItemType>>>::iterator j = graph_.find(Room<ItemType>(room2)); //find the vertex key with 'item2' and store into the iterator
@@ -58,7 +58,7 @@ void Graph<ItemType>::addPath(ItemType room1, ItemType room2)
 }
 
 template <typename ItemType>
-void Graph<ItemType>::removePath(ItemType room1, ItemType room2)
+void Dungeon<ItemType>::removePath(ItemType room1, ItemType room2)
 {
     typename std::map<Room<ItemType>, std::list<Room<ItemType>>>::iterator i = graph_.find(Room<ItemType>(room1)); //find the vertex key with 'item1' and store into the iterator
     typename std::map<Room<ItemType>, std::list<Room<ItemType>>>::iterator j = graph_.find(Room<ItemType>(room2)); //find the vertex key with 'item2' and store into the iterator
@@ -72,13 +72,13 @@ void Graph<ItemType>::removePath(ItemType room1, ItemType room2)
 }
 
 template <typename ItemType>
-bool Graph<ItemType>::isEmpty() const
+bool Dungeon<ItemType>::isEmpty() const
 {
     return graph_.empty();
 }
 
 template <typename ItemType>
-bool Graph<ItemType>::checkAdj(ItemType room1, ItemType room2) const
+bool Dungeon<ItemType>::checkAdj(ItemType room1, ItemType room2) const
 {
     typename std::map<Room<ItemType>, std::list<Room<ItemType>>>::const_iterator i = graph_.find(Room<ItemType>(room1)); //find the vertex key with 'item1' and store into the iterator
     typename std::map<Room<ItemType>, std::list<Room<ItemType>>>::const_iterator j = graph_.find(Room<ItemType>(room2)); //find the vertex key with 'item2' and store into the iterator
@@ -98,7 +98,7 @@ bool Graph<ItemType>::checkAdj(ItemType room1, ItemType room2) const
 }
 
 template <typename ItemType>
-void Graph<ItemType>::printAdjVertices(ItemType room_name) const
+void Dungeon<ItemType>::printAdjVertices(ItemType room_name) const
 {
     typename std::map<Room<ItemType>, std::list<Room<ItemType>>>::const_iterator i = graph_.find(Room<ItemType>(room_name)); //find the vertex key with 'item' and store into the iterator
 
@@ -116,7 +116,7 @@ void Graph<ItemType>::printAdjVertices(ItemType room_name) const
 }
 
 template <typename ItemType>
-void Graph<ItemType>::BFS(ItemType start) const
+void Dungeon<ItemType>::BFS(ItemType start) const
 {
     std::queue<Room<ItemType>> Q; //queue used to keep track of unvisited vertices
     std::map<Room<ItemType>, bool> visited_map; //map used to keep track of visited vertices; key = vertex and value = 'true'
@@ -155,7 +155,7 @@ void Graph<ItemType>::BFS(ItemType start) const
 }
 
 template <typename ItemType>
-void Graph<ItemType>::iterativeDFS(ItemType start) const
+void Dungeon<ItemType>::iterativeDFS(ItemType start) const
 {
     std::stack<Room<ItemType>> S; //stack used to keep track of unvisited vertices
     std::map<Room<ItemType>, bool> visited_map; //map used to keep track of visited vertices; key = vertex and value = 'true'
@@ -194,7 +194,7 @@ void Graph<ItemType>::iterativeDFS(ItemType start) const
 }
 
 template <typename ItemType>
-void Graph<ItemType>::display() const
+void Dungeon<ItemType>::display() const
 {
     if(!isEmpty()) //can only print if the graph is not empty
     {
@@ -219,7 +219,7 @@ void Graph<ItemType>::display() const
 }
 
 template <typename ItemType>
-Room<ItemType>* Graph<ItemType>::getRandomRoomPtr()
+Room<ItemType>* Dungeon<ItemType>::getRandomRoomPtr()
 {
 	srand(time(0));
 	std::random_shuffle(ptr_vector_.begin(), ptr_vector_.end());
@@ -228,7 +228,7 @@ Room<ItemType>* Graph<ItemType>::getRandomRoomPtr()
 }
 
 template <typename ItemType>
-Room<ItemType>* Graph<ItemType>::getRoomPtr(std::string room_name)
+Room<ItemType>* Dungeon<ItemType>::getRoomPtr(std::string room_name)
 {
 	for(int i = 0; i < ptr_vector_.size(); i++)
 	{
@@ -242,7 +242,7 @@ Room<ItemType>* Graph<ItemType>::getRoomPtr(std::string room_name)
 }
 
 template <typename ItemType>
-void Graph<ItemType>::setRandomKeys()
+void Dungeon<ItemType>::setRandomKeys()
 {
 	srand(time(0));
 	std::random_shuffle(ptr_vector_.begin(), ptr_vector_.end());
@@ -254,7 +254,7 @@ void Graph<ItemType>::setRandomKeys()
 }
 
 template <typename ItemType>
-void Graph<ItemType>::setRandomEnd()
+void Dungeon<ItemType>::setRandomEnd()
 {
 	srand(time(0));
 	std::random_shuffle(ptr_vector_.begin(), ptr_vector_.end());
@@ -263,7 +263,7 @@ void Graph<ItemType>::setRandomEnd()
 }
 
 template <typename ItemType>
-void Graph<ItemType>::addRandomPath()
+void Dungeon<ItemType>::addRandomPath()
 {
 	srand(time(0));
 
@@ -276,7 +276,7 @@ void Graph<ItemType>::addRandomPath()
 }
 
 template <typename ItemType>
-void Graph<ItemType>::displayKeys()
+void Dungeon<ItemType>::displayKeys()
 {
 	for(int i = 0; i < ptr_vector_.size(); i++)
 	{
@@ -288,7 +288,7 @@ void Graph<ItemType>::displayKeys()
 }
 
 template <typename ItemType>
-void Graph<ItemType>::displayEnd()
+void Dungeon<ItemType>::displayEnd()
 {
 	for(int i = 0; i < ptr_vector_.size(); i++)
 	{

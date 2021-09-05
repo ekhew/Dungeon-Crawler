@@ -1,25 +1,25 @@
 /*
-Title: Undirected Graph (Adjacency List)
+Title: Dungeon Class
 Author: Edwin Khew
-Description: Undirected graph (adjacency list) class declaration.
+Description: Dungeon class declaration.
 Date Created: 8/30/2021
 */
 
-#ifndef GRAPH_H_
-#define GRAPH_H_
+#ifndef DUNGEON_H_
+#define DUNGEON_H_
 
 #include <map>
 #include <list>
 #include <vector>
 
 template <class ItemType>
-class Graph
+class Dungeon
 {
 public:
     /*
         default constructor
     */
-    Graph();
+    Dungeon();
 
     /*
         adds a new room to the dungeon
@@ -126,5 +126,5 @@ private:
     std::vector<Room<ItemType>*> ptr_vector_; //vector of pointers to rooms
 };
 
-#include "Graph.cpp"
+#include "Dungeon.cpp"
 #endif

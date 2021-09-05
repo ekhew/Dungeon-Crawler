@@ -5,50 +5,50 @@ Description: Game class implementation.
 Date Created: 8/30/2021
 */
 
-Graph<std::string> myGraph; //create a new graph
+Dungeon<std::string> myDungeon; //create a new graph
 
 template <typename ItemType>
 Game<ItemType>::Game()
 {
 	//create rooms
-    myGraph.addRoom("Room A");
-    myGraph.addRoom("Room B");
-    myGraph.addRoom("Room C");
-    myGraph.addRoom("Room D");
-    myGraph.addRoom("Room E");
-    myGraph.addRoom("Room F");
-    myGraph.addRoom("Room G");
-    myGraph.addRoom("Room H");
+    myDungeon.addRoom("Room A");
+    myDungeon.addRoom("Room B");
+    myDungeon.addRoom("Room C");
+    myDungeon.addRoom("Room D");
+    myDungeon.addRoom("Room E");
+    myDungeon.addRoom("Room F");
+    myDungeon.addRoom("Room G");
+    myDungeon.addRoom("Room H");
 
 	//create random paths
 	for(int i = 0; i < 10; i++)
 	{
-		myGraph.addRandomPath();
+		myDungeon.addRandomPath();
 	}
 
     //place keys in random rooms
-    myGraph.setRandomKeys();
+    myDungeon.setRandomKeys();
 
     //set random room as the start
-    curr_room_ptr_ = myGraph.getRandomRoomPtr();
+    curr_room_ptr_ = myDungeon.getRandomRoomPtr();
 
     //set random room as the end
-    myGraph.setRandomEnd();
+    myDungeon.setRandomEnd();
 }
 
 template <typename ItemType>
 void Game<ItemType>::displayGame() const
 {
 	std::cout << "Paths: " << std::endl;
-	myGraph.display();
+	myDungeon.display();
 	
 	std::cout << std::endl << "Keys Inside: " << std::endl;
-	myGraph.displayKeys();
+	myDungeon.displayKeys();
 	
 	std::cout << std::endl << "Start Room: " << curr_room_ptr_->getRoomName();
 	
 	std::cout << std::endl << "End Room: ";
-	myGraph.displayEnd();
+	myDungeon.displayEnd();
 	
 	std::cout << std::endl << "--------------------------------------------------------------------------" << std::endl;
 }
@@ -66,7 +66,7 @@ void Game<ItemType>::startGame()
 
 	//display adjacent rooms to player
 	std::cout << "Connected rooms are: ";
-	myGraph.printAdjVertices(curr_room_ptr_->getRoomName());
+	myDungeon.printAdjVertices(curr_room_ptr_->getRoomName());
 	
 	//prompts the player to enter the name of the next room to visit
 	std::cout << std::endl << std::endl << "Enter room name: ";
@@ -83,9 +83,9 @@ void Game<ItemType>::continueGame(std::string next_room_param)
 	std::string next_room; //stores user input
 
 	//move to next room if the room exists and is adjacent to the current room
-	if(myGraph.checkAdj(curr_room_ptr_->getRoomName(), next_room_param))
+	if(myDungeon.checkAdj(curr_room_ptr_->getRoomName(), next_room_param))
 	{
-		curr_room_ptr_ = myGraph.getRoomPtr(next_room_param);
+		curr_room_ptr_ = myDungeon.getRoomPtr(next_room_param);
 		
 		//if the new room contains a key, increment 'key_count_' and remove the key from the room object
 		if(curr_room_ptr_->getHasKey())
@@ -119,7 +119,7 @@ void Game<ItemType>::continueGame(std::string next_room_param)
 		
 		//display adjacent rooms to player
 		std::cout << "Connected rooms are: ";
-		myGraph.printAdjVertices(curr_room_ptr_->getRoomName());
+		myDungeon.printAdjVertices(curr_room_ptr_->getRoomName());
 		
 		//prompts the player to enter the name of the next room to visit
 		std::cout << std::endl << std::endl << "Enter room name: ";
