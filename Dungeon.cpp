@@ -221,80 +221,93 @@ void Dungeon<ItemType>::display() const
 template <typename ItemType>
 Room<ItemType>* Dungeon<ItemType>::getRandomRoomPtr()
 {
-	srand(time(0));
-	std::random_shuffle(ptr_vector_.begin(), ptr_vector_.end());
+    srand(time(0));
 
-	return ptr_vector_[3];
+    //keep shuffling until the room in the first index is not a room with a key or is the 'end' room
+    while(ptr_vector_[0]->getHasKey() || ptr_vector_[0]->getIsEnd())
+    {
+        std::random_shuffle(ptr_vector_.begin(), ptr_vector_.end());
+    }
+
+    return ptr_vector_[0];
 }
 
 template <typename ItemType>
 Room<ItemType>* Dungeon<ItemType>::getRoomPtr(std::string room_name)
 {
-	for(int i = 0; i < ptr_vector_.size(); i++)
-	{
-		if(ptr_vector_[i]->getRoomName() == room_name)
-		{
-			return ptr_vector_[i];
-		}
-	}
-	
-	return nullptr;
+    for(int i = 0; i < ptr_vector_.size(); i++)
+    {
+        if(ptr_vector_[i]->getRoomName() == room_name)
+        {
+            return ptr_vector_[i];
+        }
+    }
+
+    return nullptr;
 }
 
 template <typename ItemType>
 void Dungeon<ItemType>::setRandomKeys()
 {
-	srand(time(0));
-	std::random_shuffle(ptr_vector_.begin(), ptr_vector_.end());
+    srand(time(0));
+    std::random_shuffle(ptr_vector_.begin(), ptr_vector_.end());
 
-	for(int i = 0; i <= 2; i++)
-	{
-		ptr_vector_[i]->setHasKey(true);
-	}
+    for(int i = 0; i <= 2; i++)
+    {
+        ptr_vector_[i]->setHasKey(true);
+    }
 }
 
 template <typename ItemType>
 void Dungeon<ItemType>::setRandomEnd()
 {
-	srand(time(0));
-	std::random_shuffle(ptr_vector_.begin(), ptr_vector_.end());
+    srand(time(0));
 
-	ptr_vector_[ptr_vector_.size() - 1]->setIsEnd(true);
+    //keep shuffling until the room in the first index is not a room with a key
+    while(ptr_vector_[0]->getHasKey())
+    {
+        std::random_shuffle(ptr_vector_.begin(), ptr_vector_.end());
+    }
+
+    ptr_vector_[0]->setIsEnd(true);
 }
 
 template <typename ItemType>
 void Dungeon<ItemType>::addRandomPath()
 {
-	srand(time(0));
+    srand(time(0));
 
-	while(checkAdj(ptr_vector_[0]->getRoomName(), ptr_vector_[1]->getRoomName()))
-	{
-		std::random_shuffle(ptr_vector_.begin(), ptr_vector_.end());
-	}
+    //keep shuffling until a path that does not already exists is found and can be created
+    while(checkAdj(ptr_vector_[0]->getRoomName(), ptr_vector_[1]->getRoomName()))
+    {
+        std::random_shuffle(ptr_vector_.begin(), ptr_vector_.end());
+    }
 
-	addPath(ptr_vector_[0]->getRoomName(), ptr_vector_[1]->getRoomName());
+    addPath(ptr_vector_[0]->getRoomName(), ptr_vector_[1]->getRoomName());
 }
 
 template <typename ItemType>
 void Dungeon<ItemType>::displayKeys()
 {
-	for(int i = 0; i < ptr_vector_.size(); i++)
-	{
-		if(ptr_vector_[i]->getHasKey())
-		{
-			std::cout << ptr_vector_[i]->getRoomName() << std::endl;
-		}
-	}
+    //loop through the vector to find the rooms with keys, and print them
+    for(int i = 0; i < ptr_vector_.size(); i++)
+    {
+        if(ptr_vector_[i]->getHasKey())
+        {
+            std::cout << ptr_vector_[i]->getRoomName() << std::endl;
+        }
+    }
 }
 
 template <typename ItemType>
 void Dungeon<ItemType>::displayEnd()
 {
-	for(int i = 0; i < ptr_vector_.size(); i++)
-	{
-		if(ptr_vector_[i]->getIsEnd())
-		{
-			std::cout << ptr_vector_[i]->getRoomName() << std::endl;
-		}
-	}
+    //loop through the vector to find the 'end' room, the print it
+    for(int i = 0; i < ptr_vector_.size(); i++)
+    {
+        if(ptr_vector_[i]->getIsEnd())
+        {
+            std::cout << ptr_vector_[i]->getRoomName() << std::endl;
+        }
+    }
 }

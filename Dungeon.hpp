@@ -84,41 +84,41 @@ public:
     */
     void display() const;
 
-	/*
-		returns a pointer to a random room
-		@return pointer to random room
-	*/
-    Room<ItemType>* getRandomRoomPtr();
-    
     /*
-    	returns the pointer to a specified room
-    	@param room_name, name of the room to get the pointer to 
-    	@return pointer to the specified room
+        returns a pointer to a random room; used to set the start room
+        @return pointer to random room
+    */
+    Room<ItemType>* getRandomRoomPtr();
+
+    /*
+        returns the pointer to a specified room
+        @param room_name, name of the room to get the pointer to
+        @return pointer to the specified room
     */
     Room<ItemType>* getRoomPtr(std::string room_name);
-    
+
     /*
-    	sets keys into three random rooms
+        sets keys into three random rooms
     */
     void setRandomKeys();
-    
+
     /*
-    	sets a random room as the 'end' room
+        sets a random room as the 'end' room
     */
     void setRandomEnd();
-    
+
     /*
-    	adds a path that connects two random rooms
+        adds a path that connects two random rooms
     */
     void addRandomPath();
-    
+
     /*
-    	displays the rooms that contain the keys
+        displays the rooms that contain the keys
     */
     void displayKeys();
-    
+
     /*
-    	displays the room that is the 'end' room
+        displays the room that is the 'end' room
     */
     void displayEnd();
 private:

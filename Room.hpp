@@ -24,8 +24,8 @@ public:
     Room(ItemType room_name);
 
     /*
-		sets the name of the calling room
-		@param room_name, name of the room to be set
+        sets the name of the calling room
+        @param room_name, name of the room to be set
     */
     void setRoomName(ItemType room_name);
 
@@ -47,7 +47,7 @@ public:
     */
     bool getHasKey() const;
 
-     /*
+    /*
         sets the status of a room as the 'end' room
         @param is_end, 'true' sets the room as the 'end' room, and 'false' sets it back to a regular room
     */
